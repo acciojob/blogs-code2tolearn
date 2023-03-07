@@ -4,28 +4,28 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Image")
-public class Image {
+public class Image{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private  int id ;
+    private int id;
+    private String description;
+    private String dimensions;
 
-    public Image(String description, String dimensions) {
-        this.description = description;
-        this.dimensions = dimensions;
-    }
-    private String description ;
-    private String dimensions ;
-
-    // mapping
-  @ManyToOne
-  @JoinColumn
-    private  Blog blog ;
+    @ManyToOne
+    @JoinColumn
+    private Blog blog;
 
     public Image() {
-
     }
 
-    public Image(String description, String dimensions, Blog blog) {
+    public Image(Blog blog, String description, String dimensions) {
+        this.description = description;
+        this.dimensions = dimensions;
+        this.blog = blog;
+    }
+
+    public Image(int id, String description, String dimensions, Blog blog) {
+        this.id = id;
         this.description = description;
         this.dimensions = dimensions;
         this.blog = blog;

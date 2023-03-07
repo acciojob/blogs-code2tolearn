@@ -1,28 +1,27 @@
 package com.driver.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name="user")
+public class User{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id ;
+    private int id;
+    private String username;
+    private String password;
+    private String firstName = "test";
+    private String lastName = "test";
 
-    private String username ;
-    private String password ;
+    //Mapping
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JoinColumn
+    private List<Blog> blogList;
 
-    private String  firstName = "test" ;
-    private String lastName = "test" ;
+    public User() {
 
-    public User(int id, String username, String password, String name, String lastname) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.firstName = name;
-        this.lastName = lastname;
     }
 
     public User(String username, String password) {
@@ -30,14 +29,12 @@ public class User {
         this.password = password;
     }
 
-    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
-    private List<Blog> blogList = new ArrayList<>() ;
-
-    public List<Blog> getBlogList() {
-        return blogList;
-    }
-
-    public void setBlogList(List<Blog> blogList) {
+    public User(int id, String username, String password, String firstName, String lastName, List<Blog> blogList) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.blogList = blogList;
     }
 
@@ -65,22 +62,27 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return firstName ;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.firstName = firstName ;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastName ;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastName = lastname ;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public User() {
+    public List<Blog> getBlogList() {
+        return blogList;
+    }
+
+    public void setBlogList(List<Blog> blogList) {
+        this.blogList = blogList;
     }
 }

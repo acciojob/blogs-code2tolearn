@@ -3,61 +3,48 @@ package com.driver.models;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Blog {
-    @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private int id ;
+@Table(name = "Blog")
+public class Blog{
 
-    private String title ;
-    private String content ;
+    @Id
+    @GeneratedValue(strategy =GenerationType.IDENTITY)
+    private int id;
+    private String title;
+    private String content;
 
     @CreationTimestamp
     private Date pubDate;
 
-    public Blog( String title, String content) {
-        // this.id = id ;
-        this.title = title;
-        this.content = content;
-    }
-// mapping
+    //Mapping
     @ManyToOne
     @JoinColumn
-    private User user ;
+    private User user;
 
-    @OneToMany(mappedBy = "blog",cascade =  CascadeType.ALL)
-     private  List<Image> imageList = new ArrayList<>() ;
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL)
+    @JoinColumn
+    private List<Image> imageList;
 
-    public Date getPubDate() {
-        return pubDate;
+    public Blog() {
+
     }
 
-    public void setPubDate(Date pubDate) {
-        this.pubDate = pubDate;
-    }
-
-    public List<Image> getImageList() {
-        return imageList;
-    }
-
-    public void setImageList(List<Image> imageList) {
-        this.imageList = imageList;
-    }
-
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
+    public Blog(User user, String title, String content) {
+        this.title = title;
+        this.content = content;
         this.user = user;
     }
 
-    public Blog() {
+    public Blog(int id, String title, String content, Date pubDate, User user, List<Image> imageList) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.pubDate = pubDate;
+        this.user = user;
+        this.imageList = imageList;
     }
 
     public int getId() {
@@ -82,5 +69,29 @@ public class Blog {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getPubDate() {
+        return pubDate;
+    }
+
+    public void setPubDate(Date pubDate) {
+        this.pubDate = pubDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Image> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<Image> imageList) {
+        this.imageList = imageList;
     }
 }
