@@ -18,11 +18,12 @@ public class ImageService {
     public Image addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog
         Blog blog = blogRepository2.findById(blogId).get() ;
-        Image image = new Image(description,dimensions) ;
+        Image image = new Image( description,dimensions,blog ) ;
          List<Image> imageList =   blog.getImageList() ;
          imageList.add(image) ;
          blog.setImageList(imageList);
-         blogRepository2.save(blog) ;
+         blogRepository2.save(blog) ; // image will save due to cascading effect
+
          return image ;
     }
 
@@ -40,8 +41,6 @@ public class ImageService {
 
          int scrl = Integer.parseInt(scrArray[0]) ;
          int scrb = Integer.parseInt(scrArray[1]) ;
-
-
          int imgl  = Integer.parseInt(imgArray[0]) ;
          int imgb  = Integer.parseInt(imgArray[1]) ;
 

@@ -3,7 +3,7 @@ package com.driver.models;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "Image")
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +16,7 @@ public class Image {
     private String description ;
     private String dimensions ;
 
+    // mapping
   @ManyToOne
   @JoinColumn
     private  Blog blog ;

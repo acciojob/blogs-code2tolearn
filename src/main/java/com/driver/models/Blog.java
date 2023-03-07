@@ -1,9 +1,13 @@
 package com.driver.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Blog {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -12,18 +16,29 @@ public class Blog {
     private String title ;
     private String content ;
 
+    @CreationTimestamp
+    private Date pubDate;
+
     public Blog( String title, String content) {
         // this.id = id ;
         this.title = title;
         this.content = content;
     }
-
+// mapping
     @ManyToOne
     @JoinColumn
     private User user ;
 
     @OneToMany(mappedBy = "blog",cascade =  CascadeType.ALL)
      private  List<Image> imageList = new ArrayList<>() ;
+
+    public Date getPubDate() {
+        return pubDate;
+    }
+
+    public void setPubDate(Date pubDate) {
+        this.pubDate = pubDate;
+    }
 
     public List<Image> getImageList() {
         return imageList;
