@@ -12,8 +12,8 @@ public class Blog {
     private String title ;
     private String content ;
 
-    public Blog(User id, String title, String content) {
-        this.id = id;
+    public Blog( String title, String content) {
+        // this.id = id ;
         this.title = title;
         this.content = content;
     }
